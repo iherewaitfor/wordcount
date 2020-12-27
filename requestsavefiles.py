@@ -1,6 +1,8 @@
-# -*- coding: utf-8 -*- 
 import requests
 from pathlib import Path
+# -*- coding: utf-8 -*- 
+import sys
+import io
 from textrank4zh import TextRank4Keyword
 
 response  = requests.get("https://www.baidu.com")
@@ -28,13 +30,10 @@ i = 0
 pathPre = "./requesttxt"
 filePath = pathPre + ".txt"
 txtFile = Path(filePath)
-needSaveFiles = False
-#needSaveFiles = True  # if you want to save  diffrent file on every request, open this
-if needSaveFiles:
-    while txtFile.exists():
-        filePath = pathPre + str(i) +".txt"
-        i +=1
-        txtFile = Path(filePath)
+while txtFile.exists():
+    filePath = pathPre + str(i) +".txt"
+    i +=1
+    txtFile = Path(filePath)
 with open(filePath,'w') as f:
     for words in tr4w.words_all_filters:
         f.write('/'.join(words))
